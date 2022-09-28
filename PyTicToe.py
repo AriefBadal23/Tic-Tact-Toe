@@ -6,10 +6,6 @@ class Game():
         self.running = True
         pygame.init()
 
-    def create_line(self, window, color, x_position, y_position):
-        return pygame.draw.line(window, color, x_position, y_position)
-
-
 
     def run(self):
         window = Window(600,600, (0, 153, 153))
@@ -26,7 +22,7 @@ class Game():
                     
                                                 #   color, start-end pos, 
                     pygame.draw.line(main_window, (255,255,255), (400, 500), (400, 50), 20)
-                    pygame.draw.line(main_window, (255,255,255), (220, 500), (220, 50), 20)
+                    pygame.draw.line(main_window, (255,255,), (220, 500), (220, 50), 20)
 
 
                     pygame.display.update()
