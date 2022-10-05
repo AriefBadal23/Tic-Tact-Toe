@@ -5,6 +5,7 @@ from Window import Window
 class Game():
     def __init__(self):
         self.running = True
+        self.player = 1
         pygame.init()
 
 
@@ -28,18 +29,15 @@ class Game():
                         mouse_y = int(event.pos[0] // 200)
                         mouse_x = int(event.pos[1] // 200)
                         # TODO: player does not change if one player has already marked a spot
-                        
-                        # if board.check_available(mouse_y, mouse_x) == True:
-                        #     player = 1
-                        #     if player == 1:
-                        #         board.draw_shape(mouse_x, mouse_y, player)
-                        #     player = 2
-                        #         # print(f'Player: {player} is aan de beurt')
-                            
-                        #     if player == 2:
-                        #         board.draw_shape(mouse_x, mouse_y, player)
-                        #     player = 1
-                        #             # print(f'Player: {player} is aan de beurt')
+
+                        if board.check_available(mouse_x, mouse_y):
+                            if self.player == 1:
+                                board.draw_shape(mouse_x, mouse_y, self.player)
+                                self.player = 2
+                            elif self.player == 2:
+                                board.draw_shape(mouse_x, mouse_y, self.player)
+                                self.player = 1
+                                
 
 
 
