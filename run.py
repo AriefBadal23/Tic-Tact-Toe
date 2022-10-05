@@ -1,5 +1,5 @@
-from PyTicToe import App
+from PyTicToe import Game
 
 if __name__ == "__main__":
-    app = App()
+    app = Game()
     app.run()
