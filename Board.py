@@ -17,12 +17,15 @@ class Board():
         print(self.board)
 
 
-    def check_available(self, row, col):
+    def check_available(self, col, row):
         """ Checks if the square is already marked """
         # TODO: kijkt of row en col gelijk is aan 1 ipv kijken naar player
         if self.board[col][row] == 0:
+            print(self.board[col][row])
             return True
         else:
+            print(self.board[col][row])
+
             return False
 
 
