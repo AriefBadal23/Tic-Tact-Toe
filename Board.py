@@ -21,18 +21,20 @@ class Board():
         """ Checks if the square is already marked """
         # TODO: kijkt of row en col gelijk is aan 1 ipv kijken naar player
         if self.board[col][row] == 0:
-            print(self.board[col][row])
+            # print(self.board[col][row])
             return True
         else:
-            print(self.board[col][row])
+            # print(self.board[col][row])
 
             return False
 
+    def draw_circle(self, window, x, y):
+        circle = pygame.draw.circle(window, self.color, (x, y),70, 10)
+        pygame.display.update()
+        return circle
 
     def draw_lines(self, window):
-        """ Draw the lines for the tic tac toe game """
-        window.fill((0, 153, 153))
-                                            
+        """ Draw the lines for the tic tac toe game """                                            
         pygame.draw.line(window, self.color, (550, 200), (100, 200), self.width)
         pygame.draw.line(window, self.color, (550, 350), (100, 350), self.width)
         
@@ -41,8 +43,8 @@ class Board():
         pygame.draw.line(window, self.color, (220, 500), (220, 50), self.width)
         pygame.display.update()
 
-
-
+   
+    
     # def mark_board_full(self):
     #     for row in self.board:
     #         print(row)
