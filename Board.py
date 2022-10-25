@@ -28,8 +28,8 @@ class Board():
 
             return False
 
-    def draw_circle(self, window, x, y):
-        circle = pygame.draw.circle(window, self.color, (x, y),70, 10)
+    def draw_circle(self, window, color, x, y):
+        circle = pygame.draw.circle(window, color, (x, y),50, 10)
         pygame.display.update()
         return circle
 
