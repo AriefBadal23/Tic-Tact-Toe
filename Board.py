@@ -19,13 +19,9 @@ class Board():
 
     def check_available(self, col, row):
         """ Checks if the square is already marked """
-        # TODO: kijkt of row en col gelijk is aan 1 ipv kijken naar player
         if self.board[col][row] == 0:
-            # print(self.board[col][row])
             return True
         else:
-            # print(self.board[col][row])
-
             return False
 
     def draw_circle(self, window, color, x, y):
@@ -43,20 +39,20 @@ class Board():
         pygame.draw.line(window, self.color, (220, 500), (220, 50), self.width)
         pygame.display.update()
 
-    def check_win(self, player):
+
+    def draw_vertical_winning_line(self, window):
+        pygame.draw.line(window, (255, 0,0), (100,100),(400,400), self.width)
+        pygame.display.update()
+
+    def check_win(self, player, window):
         for col in range(self.columns):
             if self.board[col][0] == player and self.board[col][1] == player and self.board[col][2] == player:
-                print(True)
+                self.draw_vertical_winning_line(window)
 
 
         for row in range(self.rows):
             if self.board[0][row] == player and self.board[1][row] == player and self.board[2][row] == player:
                 print(True)
-
-
-    def draw_vertical_winning_line(self):
-        pass
-
 
     
     # def mark_board_full(self):
