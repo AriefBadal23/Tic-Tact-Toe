@@ -43,7 +43,21 @@ class Board():
         pygame.draw.line(window, self.color, (220, 500), (220, 50), self.width)
         pygame.display.update()
 
-   
+    def check_win(self, player):
+        for col in range(self.columns):
+            if self.board[col][0] == player and self.board[col][1] == player and self.board[col][2] == player:
+                print(True)
+
+
+        for row in range(self.rows):
+            if self.board[0][row] == player and self.board[1][row] == player and self.board[2][row] == player:
+                print(True)
+
+
+    def draw_vertical_winning_line(self):
+        pass
+
+
     
     # def mark_board_full(self):
     #     for row in self.board:
