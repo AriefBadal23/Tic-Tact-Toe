@@ -36,41 +36,39 @@ class Board():
         pygame.draw.line(window, self.color, (self.SQUARE_WIDTH, 0), (self.SQUARE_WIDTH, 600), self.line_width)
         pygame.draw.line(window, self.color, (self.SQUARE_WIDTH*2, 0), (self.SQUARE_WIDTH*2, 600), self.line_width)
 
-        # pygame.draw.line(window, self.color, (550, 350), (100, 350), self.width)
-        
                                     #   color, start-end pos, 
                                     # x,y, x, y
         pygame.draw.line(window, self.color, (0, self.SQUARE_WIDTH), (self.WIDTH, self.SQUARE_WIDTH), self.line_width)
         pygame.draw.line(window, self.color, (0, self.SQUARE_WIDTH *2), (self.WIDTH , self.SQUARE_WIDTH *2), self.line_width)
-        # pygame.draw.line(window, self.color, (220, 500), (220, 50), self.width)
         pygame.display.update()
 
 
-    def draw_horizontal_winning_line(self, window, row):
-        pos_y = row * 200 + 100
-        # TODO: fix position winning line
+    def draw_horizontal_winning_line(self, window, col):
+        """ Draws hortizontal winning line """
+        pos_y = col * 200 + 100
         pygame.draw.line(window, (255, 0,0), (15, pos_y), (self.WIDTH - 15, pos_y), 15)
         pygame.display.update()
+
 
     def draw_vertical_winning_line(self, window, row):
-        pos_y = row * 200 + 100
-        pygame.draw.line(window, (255, 0,0), (15, pos_y), (self.WIDTH - 15, pos_y), 15)
+        pos_x = row * 200 + 100
+        pygame.draw.line(window, (255, 0,0), (pos_x, 25), (pos_x, self.WIDTH - 15), 15)
         pygame.display.update()
-
 
 
 
     def check_win(self, player, window):
         for col in range(self.columns):
             if self.board[col][0] == player and self.board[col][1] == player and self.board[col][2] == player:
-                self.draw_horizontal_winning_line(window, row)
-                print(True)
+                self.draw_horizontal_winning_line(window, col)
+                break
 
 
 
         for row in range(self.rows):
             if self.board[0][row] == player and self.board[1][row] == player and self.board[2][row] == player:
-                print(True)
+                self.draw_vertical_winning_line(window, row)
+
 
 
     
