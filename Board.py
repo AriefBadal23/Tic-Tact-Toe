@@ -10,6 +10,7 @@ class Board():
         self.SQUARE_WIDTH = 200
         self.line_width = 20
         self.WIDTH = 600
+        self.line_color = (255,255,255)
 
 
     def draw_shape(self,col, row, player):
@@ -32,7 +33,7 @@ class Board():
         return circle
 
     def draw_lines(self, window):
-        """ Draw the lines for the tic tac toe game """                                            
+        """ Draw the horizontal and vertical lines for the tic tac toe game """                                            
         pygame.draw.line(window, self.color, (self.SQUARE_WIDTH, 0), (self.SQUARE_WIDTH, 600), self.line_width)
         pygame.draw.line(window, self.color, (self.SQUARE_WIDTH*2, 0), (self.SQUARE_WIDTH*2, 600), self.line_width)
 
@@ -48,12 +49,15 @@ class Board():
         pos_y = col * 200 + 100
         pygame.draw.line(window, (255, 0,0), (15, pos_y), (self.WIDTH - 15, pos_y), 15)
         pygame.display.update()
+        True
 
 
     def draw_vertical_winning_line(self, window, row):
+        """ Draws the vertical winning line """
         pos_x = row * 200 + 100
-        pygame.draw.line(window, (255, 0,0), (pos_x, 25), (pos_x, self.WIDTH - 15), 15)
+        pygame.draw.line(window, (self.line_color), (pos_x, 25), (pos_x, self.WIDTH - 15), 15)
         pygame.display.update()
+        return True
 
 
 
@@ -61,13 +65,13 @@ class Board():
         for col in range(self.columns):
             if self.board[col][0] == player and self.board[col][1] == player and self.board[col][2] == player:
                 self.draw_horizontal_winning_line(window, col)
-                break
-
+                return True
 
 
         for row in range(self.rows):
             if self.board[0][row] == player and self.board[1][row] == player and self.board[2][row] == player:
                 self.draw_vertical_winning_line(window, row)
+                return True
 
 
 

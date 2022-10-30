@@ -32,10 +32,11 @@ class Game():
                         board.draw_shape(mouse_x , mouse_y, self.player)
                         mouse_position = pygame.mouse.get_pos()
                         x, y = mouse_position
-                        # TODO: circle draws but disappears
-                        board.draw_circle(main_window,(0,255,0), x, y)
-                        board.check_win(self.player, main_window)   
-                        pygame.display.update()
+                        if board.draw_circle(main_window,(0,255,0), x, y):
+                            if board.check_win(self.player, main_window) == True:   
+                                pygame.display.update()
+                                self.running = False
+                                print(f'Player {self.player} has won the game!')
                         self.player = 2
                         
                     elif self.player == 2:
@@ -43,8 +44,10 @@ class Game():
                         x, y = mouse_position
                         board.draw_shape(mouse_x, mouse_y, self.player)
                         board.draw_circle(main_window,(255,0,0), x, y)
-                        board.check_win(self.player, main_window)   
-                        pygame.display.update()   
+                        if board.check_win(self.player, main_window) == True:
+                            pygame.display.update()   
+                            self.running = False
+                            print(f'Player {self.player} has won the game!')
                         self.player = 1
                     
 
