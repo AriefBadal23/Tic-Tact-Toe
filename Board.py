@@ -65,8 +65,7 @@ class Board():
         pygame.display.update()
         return True
 
-    def draw_diagonal_winning_line_2(self, window, row):
-        pos_x = row * 200 + 100
+    def draw_diagonal_winning_line_2(self, window):
         pygame.draw.line(window, (self.line_color), (self.WIDTH -100, 90), (100, self.WIDTH), 15)
         pygame.display.update()
         return True
@@ -85,12 +84,12 @@ class Board():
                 self.draw_vertical_winning_line(window, row)
                 return True
 
-        if self.board[0][0] == player and self.board[1][1] and self.board[2][2]:
+        if self.board[0][0] == player and self.board[1][1] ==player and self.board[2][2] ==player:
             print('Diagonal win!')
             self.draw_left_diagonal_winning_line(window, row)
         
         elif self.board[2][0] == player and self.board[1][1] == player and self.board[0][2]:
-            self.draw_diagonal_winning_line_2(window, row)
+            self.draw_diagonal_winning_line_2(window)
             print('Other diagonal!!')
 
     
