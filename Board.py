@@ -73,7 +73,11 @@ class Board():
                 self.draw_vertical_winning_line(window, row)
                 return True
 
-
+        if self.board[0][0] == player and self.board[1][1] and self.board[2][2]:
+            print('Diagonal win!')
+        
+        elif self.board[2][0] == player and self.board[1][1] == player and self.board[0][2]:
+            print('Other diagonal!!')
 
     
     # def mark_board_full(self):
