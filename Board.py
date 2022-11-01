@@ -24,7 +24,7 @@ class Board():
         """ Checks if the square is already marked """
         if self.board[col][row] == 0:
             return True
-        else:
+        elif self.board[col][row] == 1 or self.board[col][row] == 2:
             return False
 
     def draw_circle(self, window, color, x, y):
@@ -85,12 +85,12 @@ class Board():
                 return True
 
         if self.board[0][0] == player and self.board[1][1] ==player and self.board[2][2] ==player:
-            print('Diagonal win!')
             self.draw_left_diagonal_winning_line(window, row)
+            return True
         
         elif self.board[2][0] == player and self.board[1][1] == player and self.board[0][2]:
             self.draw_diagonal_winning_line_2(window)
-            print('Other diagonal!!')
+            return True
 
     
     # def mark_board_full(self):

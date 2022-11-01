@@ -25,31 +25,34 @@ class Game():
                     # The window has an height and width of 600 px; each square to mark is 200 px
                     mouse_y = int(event.pos[0] // 200)
                     mouse_x = int(event.pos[1] // 200)
-                    # print(mouse_x, mouse_y)
-                    board.check_available(mouse_x, mouse_y)
 
-                    if self.player == 1:
-                        board.draw_shape(mouse_x , mouse_y, self.player)
-                        mouse_position = pygame.mouse.get_pos()
-                        x, y = mouse_position
-                        if board.draw_circle(main_window,(0,255,0), x, y):
-                            if board.check_win(self.player, main_window) == True:   
-                                pygame.display.update()
+                    if board.check_available(mouse_x, mouse_y) == True:
+                        if self.player == 1:
+                            board.draw_shape(mouse_x , mouse_y, self.player)
+                            mouse_position = pygame.mouse.get_pos()
+                            x, y = mouse_position
+                            if board.draw_circle(main_window,(0,255,0), x, y):
+                                if board.check_win(self.player, main_window) == True:   
+                                    pygame.display.update()
+                                    self.running = False
+                                    print(f'Player {self.player} has won the game!')
+                            self.player = 2
+                            
+
+                            
+                        elif self.player == 2:
+                            mouse_position = pygame.mouse.get_pos()
+                            x, y = mouse_position
+                            board.draw_shape(mouse_x, mouse_y, self.player)
+                            board.draw_circle(main_window,(255,0,0), x, y)
+                            self.clicks = 0
+                            if board.check_win(self.player, main_window) == True:
+                                pygame.display.update()   
                                 self.running = False
                                 print(f'Player {self.player} has won the game!')
-                        self.player = 2
+                            self.player = 1
+
                         
-                    elif self.player == 2:
-                        mouse_position = pygame.mouse.get_pos()
-                        x, y = mouse_position
-                        board.draw_shape(mouse_x, mouse_y, self.player)
-                        board.draw_circle(main_window,(255,0,0), x, y)
-                        if board.check_win(self.player, main_window) == True:
-                            pygame.display.update()   
-                            self.running = False
-                            print(f'Player {self.player} has won the game!')
-                        self.player = 1
-                    
 
 
 
