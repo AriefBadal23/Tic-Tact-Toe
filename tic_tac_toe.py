@@ -1,10 +1,10 @@
 """ The game loop of the tic-tac-toe game
 It is required to install pygame to run the game.
-it contains the follwoing functions:
+it contains the follwoing methods:
     * run() - runs the game
 """
 import pygame
-from Board import Board
+from board import Board
 from Window import Window
 
 
@@ -22,7 +22,6 @@ class Game:
     run(self)
         runs the tic-tac-toe game
     """
-
     def __init__(self):
         self.running = True
         self.player = 1
@@ -47,9 +46,11 @@ class Game:
                     mouse_y = int(event.pos[0] // 200)
                     mouse_x = int(event.pos[1] // 200)
 
+
                     if board.check_available(mouse_x, mouse_y) is True:
                         if self.player == 1:
                             board.draw_shape(mouse_x, mouse_y, self.player)
+                            board.mark_board_full(mouse_x)
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
                             if board.draw_circle(main_window, (0, 255, 0), x_pos, y_pos):
