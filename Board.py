@@ -106,6 +106,7 @@ class Board():
                 self.draw_vertical_winning_line(window, row)
                 return True
 
+        # check diagnal win
         if self.board[0][0] == player and self.board[1][1] ==player and self.board[2][2] == player:
             self.draw_left_diagonal_winning_line(window, row)
             return True
@@ -114,5 +115,13 @@ class Board():
             self.draw_diagonal_winning_line_2(window)
             return True
   
-    def mark_board_full(self, col):
-        pass
+    def mark_board_full(self, row, col):
+        marked_spots = 0
+        for row in range(self.rows):
+            for col in range(self.columns):
+                if self.board[col][row] == 1 or self.board[col][row] == 2 :
+                    marked_spots +=1
+                    print(marked_spots)
+                    if marked_spots == 9:
+                        print("All spotts have been marked!")
+                        return True
