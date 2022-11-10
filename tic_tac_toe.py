@@ -7,7 +7,7 @@ import pygame
 from board import Board
 from Window import Window
 from game_over_screen import GameOverScreen
-
+import time
 
 class Game:
     """A class to create tic-tac-toe game
@@ -59,11 +59,12 @@ class Game:
                             if board.draw_circle(main_window, (0, 255, 0), x_pos, y_pos):
                                 if board.check_win(self.player, main_window) is True:
                                     pygame.display.update()
-                                    # self.running = False
-                                    # print(f"Player {self.player} has won the game!")
-                                    # TODO: gameover_screen class gemaakt; ik wil text kunenn laten zien met wie er heeft gewonnen
-                                    # en knoppen met een Restart knop of quit knop
-                                    game_over_screen.draw_text(main_window, f"Player {self.player} has won the game", 200 , 300)
+                                    # TODO: knoppen met een Restart knop of quit knop
+                                    game_over_screen.draw_text(self.player, main_window, 200 , 300)
+                                    time.sleep(5)
+                                    self.running = False
+
+
                             self.player = 2
 
                         elif self.player == 2:
@@ -76,6 +77,7 @@ class Game:
                             board.draw_circle(main_window, (255, 0, 0), x_pos, y_pos)
                             if board.check_win(self.player, main_window) is True:
                                 pygame.display.update()
+                                game_over_screen.draw_text(self.player, main_window, 200 , 300)
+                                time.sleep(5)
                                 self.running = False
-                                print(f"Player {self.player} has won the game!")
                             self.player = 1
