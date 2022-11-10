@@ -6,6 +6,7 @@ it contains the follwoing methods:
 import pygame
 from board import Board
 from Window import Window
+from game_over_screen import GameOverScreen
 
 
 class Game:
@@ -31,6 +32,7 @@ class Game:
         """ Runs the tic-tac-toe game """
         window = Window(600, 600)
         main_window = window.get_window()
+        game_over_screen = GameOverScreen()
         board = Board()
         board.draw_lines(main_window)
 
@@ -47,32 +49,33 @@ class Game:
                     mouse_x = int(event.pos[1] // 200)
 
 
-                    if board.check_available(mouse_x, mouse_y) is True:
+                    if board.check_available_square(mouse_x, mouse_y) is True:
                         if self.player == 1:
                             board.draw_shape(mouse_x, mouse_y, self.player)
                             if board.mark_board_full(mouse_x, mouse_y):
-                                self.running = False
+                                    self.running = False
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
                             if board.draw_circle(main_window, (0, 255, 0), x_pos, y_pos):
                                 if board.check_win(self.player, main_window) is True:
                                     pygame.display.update()
                                     # self.running = False
-                                    print(f"Player {self.player} has won the game!")
+                                    # print(f"Player {self.player} has won the game!")
+                                    # TODO: gameover_screen class gemaakt; ik wil text kunenn laten zien met wie er heeft gewonnen
+                                    # en knoppen met een Restart knop of quit knop
+                                    game_over_screen.draw_text(main_window, f"Player {self.player} has won the game", 200 , 300)
                             self.player = 2
 
                         elif self.player == 2:
-
+                            """ mouse_x and mouse_y = uses the 3x3 raster
+                                and x_pos and y_post uses the real mouse position
+                             """
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
                             board.draw_shape(mouse_x, mouse_y, self.player)
-                            if board.mark_board_full(mouse_x, mouse_y):
-                                self.running = False
-
-
                             board.draw_circle(main_window, (255, 0, 0), x_pos, y_pos)
                             if board.check_win(self.player, main_window) is True:
                                 pygame.display.update()
-                                # self.running = False
+                                self.running = False
                                 print(f"Player {self.player} has won the game!")
                             self.player = 1
