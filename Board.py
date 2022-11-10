@@ -32,7 +32,7 @@ class Board():
         """ Creates the tic tac toe player board with rows and columns 3x3 """
         # Starts with zero so, 0,1,2
         self.board[col][row] = player
-        print(self.board)
+        # print(self.board)
 
     def check_available_square(self, col, row):
         """ Checks if the square is already marked """
