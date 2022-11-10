@@ -34,7 +34,7 @@ class Board():
         self.board[col][row] = player
         print(self.board)
 
-    def check_available(self, col, row):
+    def check_available_square(self, col, row):
         """ Checks if the square is already marked """
         if self.board[col][row] == 0:
             return True
@@ -121,7 +121,7 @@ class Board():
             for col in range(self.columns):
                 if self.board[col][row] == 1 or self.board[col][row] == 2 :
                     marked_spots +=1
-                    print(marked_spots)
+                    # print(marked_spots)
                     if marked_spots == 9:
                         print("All spotts have been marked!")
                         return True
