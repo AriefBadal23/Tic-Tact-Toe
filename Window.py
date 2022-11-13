@@ -20,13 +20,13 @@ class Window():
             Retrieves the pygame window
      """
     def __init__(self, width, height):
-        self.widht = width
+        self.width = width
         self.height = height
         self.running = True
         self.color = (0, 153, 153)
 
     def get_window(self):
         """ Retrieves the pygame window """
-        window = pygame.display.set_mode((self.widht, self.height))
+        window = pygame.display.set_mode((self.width, self.height))
         window.fill(self.color)
         return window
