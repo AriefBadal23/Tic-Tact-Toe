@@ -5,6 +5,7 @@
         * draw_text() - draws the text if a player won the game
  """
 import pygame
+import pygwidgets
 
 
 class GameOverScreen():
@@ -13,10 +14,14 @@ class GameOverScreen():
     def __init__(self):
         self.font = pygame.font.SysFont('Arial', 30)
 
-    def draw_text(self, player, window, x_pos, y_pos):
+    def show_popup(self, player, window, x_pos, y_pos):
         """ Draws the text for the winning player """
-        game_over_text = f"Player {player} has won the game!"
+        game_over_text = f"Player {player} won the game!"
+        rect = pygame.Rect(100,300,370,100)
+        pygame.draw.rect(window, (255, 0,0), rect)
         text = self.font.render(game_over_text, True, (0, 0, 0))
         window.blit(text, (x_pos, y_pos))
+        # restart_button = pygwidgets.TextButton(window, (130, 200), "Restart")
+        # restart_button.draw()
         pygame.display.update()
         return text
