@@ -28,8 +28,8 @@ class Game:
     """
 
     def __init__(self):
-        self.running = True
-        self.player = 1
+        self.__running = True
+        self.__player = 1
         pygame.init()
 
     def run(self):
@@ -40,10 +40,10 @@ class Game:
         board = Board()
         board.draw_lines(main_window)
 
-        while self.running:
+        while self.__running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.__running = False
                     pygame.quit()
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -53,44 +53,44 @@ class Game:
                     mouse_x = int(event.pos[1] // 200)
 
                     if board._Board__check_available_square(mouse_x, mouse_y) is True:
-                        if self.player == 1:
-                            board.draw_shape(mouse_x, mouse_y, self.player)
+                        if self.__player == 1:
+                            board.draw_shape(mouse_x, mouse_y, self.__player)
                             if board._Board__mark_board_full(mouse_x, mouse_y):
-                                self.running = False
+                                self.__running = False
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
                             if board.draw_circle(
                                 main_window, (0, 255, 0), x_pos, y_pos
                             ):
                                 if (
-                                    board._Board__check_win(self.player, main_window)
+                                    board._Board__check_win(self.__player, main_window)
                                     is True
                                 ):
                                     pygame.display.update()
                                     game_over_screen.show_popup(
-                                        self.player, main_window, 150, 300
+                                        self.__player, main_window, 150, 300
                                     )
                                     # time.sleep(5)
                                     # self.running = False
-                            self.player = 2
+                            self.__player = 2
 
-                        elif self.player == 2:
+                        elif self.__player == 2:
                             # mouse_x and mouse_y = uses the 3x3 raster
                             # and x_pos and y_post uses
                             # the real mouse position
 
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
-                            board.draw_shape(mouse_x, mouse_y, self.player)
+                            board.draw_shape(mouse_x, mouse_y, self.__player)
                             board.draw_circle(main_window, (255, 0, 0), x_pos, y_pos)
                             if (
-                                board._Board__check_win(self.player, main_window)
+                                board._Board__check_win(self.__player, main_window)
                                 is True
                             ):
                                 pygame.display.update()
                                 game_over_screen.show_popup(
-                                    self.player, main_window, 200, 300
+                                    self.__player, main_window, 200, 300
                                 )
                                 # time.sleep(5)
                                 # self.running = False
-                            self.player = 1
+                            self.__player = 1
