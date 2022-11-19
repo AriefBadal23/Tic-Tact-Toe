@@ -22,7 +22,6 @@ class Window():
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.running = True
         self.color = (0, 153, 153)
 
     def get_window(self):
