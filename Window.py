@@ -27,5 +27,7 @@ class Window():
     def get_window(self):
         """ Retrieves the pygame window """
         window = pygame.display.set_mode((self.width, self.height))
+        pygame.display.set_caption("Tic-Tac-Toe")
+        
         window.fill(self.color)
         return window
