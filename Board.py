@@ -1,16 +1,56 @@
-""" The tic-tac-toe game board to draw shapes
-    It is required to install pygame to run the game.
-    it contains the following methods
-        *draw_shape()
-        *check_available()
-        *draw_circle()
-        *draw_lines()
-        * draw_horizontal_winning_line()
-        * draw_diagonal_winning_line_2()
-        * draw_vertical_winning_line
-        * draw_left_diagonal_winning_line
-        * draw_diagonal_winning_line_2
-        * check_win()
+""" 
+    The tic-tac-toe game board to play tic tac toe
+    
+    ----------
+    Attributes
+    ----------
+    rows : int
+    columns: int
+    self.__board: numpy.ndarray obj
+    self.color: tupl
+    self.square_width: int
+    self.line_width: int
+    self.width: int
+    self.line_color: tupl
+
+
+    Methods
+    ------
+    draw_shape(col=int, row=int, player=int)
+        draws the players move on the tic tac toe board
+    
+    __check_available_square(col=int, row=int)
+        checks if the selected square is available to be marked
+    
+    draw_circle(window = window, color = tupl, x= int, y=int)
+        Draws the circle for the player
+
+    draw_lines(window= window)
+        draws the line that makes it a 3x3 grid
+    
+    __draw_horizontal_winning_line(window= Window obj, col=int)
+        draws a horizontal winning line
+
+
+    __draw_diagonal_winning_line_2(window = Window obj, row= int)
+        draws a diagonal_line for the ... side
+
+    __draw_vertical_winning_line(window = Window obj, row= int)
+        draws a vertical line
+    
+
+    __draw_left_diagonal_winning_line(window = Window obj, row=int)
+        draws the left diagnal winning line
+
+    __draw_diagonal_winning_line_2(window = Window obj, row = int)
+        draws the diagnal winning_line from the right corner
+
+    __check_win(player = int, window = Window obj)
+        Checks if a player has won the game
+
+    __mark_board_full(row = int, col = int)
+        Marks the board full if no the grid is full
+
  """
 import numpy
 import pygame
@@ -23,6 +63,7 @@ class Board:
         self.rows = 3
         self.columns = 3
         self.__board = numpy.zeros((self.rows, self.columns))
+        print(__doc__)
         self.color = (255, 255, 255)
         self.square_width = 200
         self.line_width = 20
