@@ -75,7 +75,17 @@ class Board:
         return self.__board
 
     def draw_shape(self, col, row, player):
-        """Creates the tic tac toe player board with rows and columns 3x3"""
+        """Creates the tic tac toe player board with rows and columns 3x3
+            Parameters
+            ----------
+            col : int
+                column to draw the shape
+            row : int
+                row to draw the shape
+            player : int
+                player which draw the shape
+
+        """
         # Starts with zero so, 0,1,2
         game_board = self.get_board()
         game_board[col][row] = player
@@ -83,20 +93,40 @@ class Board:
         # print(self.board)
 
     def __check_available_square(self, col, row):
-        """Checks if the square is already marked"""
+        """Checks if the square is already marked
+            Parameters
+            ----------
+            col : int
+                Marked column to check if available
+            row : int
+                Marked row to check if available
+        """
         if self.__board[col][row] == 0:
             return True
         elif self.__board[col][row] == 1 or self.__board[col][row] == 2:
             return False
 
     def draw_circle(self, window, color, x, y):
-        """Draws a circle on the surface"""
+        """Draws a circle on the surface
+           window : Window object
+            window where the shape will be drawn on
+           color : tuple
+            tuple to pass the rgb values for the color
+           x : int
+            x value to draw the circle
+           y: int
+            y value to draw the circle
+           
+        """
         circle = pygame.draw.circle(window, color, (x, y), 50, 10)
         pygame.display.update()
         return circle
 
     def draw_lines(self, window):
-        """Draw the horizontal and vertical lines for the tic tac toe game"""
+        """Draw the horizontal and vertical lines for the tic tac toe game
+           window : Window object
+            window where the shape will be drawn on
+        """
         pygame.draw.line(
             window,
             self.color,
@@ -132,14 +162,25 @@ class Board:
         pygame.display.update()
 
     def __draw_horizontal_winning_line(self, window, col):
-        """Draws hortizontal winning line"""
+        """Draws hortizontal winning line
+            window: Window object
+                window where the shape will be drawn on
+            col: int
+                columns to draw the horizontal winning line
+        """
         pos_y = col * 200 + 100
         pygame.draw.line(window, (255, 0, 0), (15, pos_y), (self.width - 15, pos_y), 15)
         pygame.display.update()
         return True
 
     def __draw_vertical_winning_line(self, window, row):
-        """Draws the vertical winning line"""
+        """Draws the vertical winning line
+           window: Window object
+                window where the shape will be drawn on
+            row: int
+                rows to draw the vertical winning line
+        
+        """
         pos_x = row * 200 + 100
         pygame.draw.line(
             window, (self.line_color), (pos_x, 25), (pos_x, self.width - 15), 15
@@ -148,7 +189,12 @@ class Board:
         return True
 
     def __draw_left_diagonal_winning_line(self, window, row):
-        """Draw the left diagnal winning line"""
+        """Draw the left diagnal winning line
+            window: Window object
+                window where the shape will be drawn on
+            row: int
+                rows to draw the left diagonal winning line
+        """
         pos_x = row * 200 + 100
         pygame.draw.line(
             window, (self.line_color), (90, 25), (pos_x, self.width - 15), 15
@@ -157,7 +203,10 @@ class Board:
         return True
 
     def __draw_diagonal_winning_line_2(self, window):
-        """Draw the right diagnal winning line"""
+        """Draw the right diagnal winning line
+           window: Window object
+                window where the shape will be drawn on    
+        """
         pygame.draw.line(
             window, (self.line_color), (self.width - 100, 90), (100, self.width), 15
         )
@@ -165,7 +214,13 @@ class Board:
         return True
 
     def __check_win(self, player, window):
-        """Method which checks if the player has won"""
+        """Method which checks if the player has won
+            player: int
+                Player who wins the game
+            window: Window object
+                window where the shape will be drawn on   
+            
+        """
         for col in range(self.columns):
             if (
                 self.__board[col][0] == player
@@ -202,6 +257,12 @@ class Board:
             return True
 
     def __mark_board_full(self, row, col):
+        """ Checks if the 3x3 grid is full 
+            row: int
+                rows to check if they are full
+            col: int
+                columns to check if they are full
+        """
         marked_spots = 0
         for row in range(self.rows):
             for col in range(self.columns):

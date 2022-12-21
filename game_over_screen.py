@@ -1,4 +1,16 @@
 """ 
+    Gameover window for the tic tac toe game
+    ----------
+    Attributes
+    ----------
+    self.font: numpy.ndarray obj
+
+
+ """
+
+
+
+""" 
     Game over window which is shown after a player has won the game
     It is required to install pygame to run the game.
     Contains the following methods:
