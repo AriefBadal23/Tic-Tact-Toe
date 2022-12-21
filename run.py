@@ -2,8 +2,11 @@
     It is required to install pygame to run the game.
     Only if this script is used the game will run
  """
-from tic_tac_toe import Game
+from game import Game
+from Network import Network
 
 if __name__ == "__main__":
+    tic_tact_toe_network = Network()
     app = Game()
+    tic_tact_toe_network.connect_to_server()
     app.run()
