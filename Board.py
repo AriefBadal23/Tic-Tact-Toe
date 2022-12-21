@@ -63,7 +63,6 @@ class Board:
         self.rows = 3
         self.columns = 3
         self.__board = numpy.zeros((self.rows, self.columns))
-        print(__doc__)
         self.color = (255, 255, 255)
         self.square_width = 200
         self.line_width = 20
