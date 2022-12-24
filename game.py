@@ -29,8 +29,12 @@ class Game:
 
     def __init__(self):
         self.__running = True
-        self.__player = 1
+        self.__player = 0
         pygame.init()
+
+    def set_player(self, conn: list) -> list:
+        """ Creates a new player by any new connection that has been made """
+        print(f"These are the players {conn}")
 
     def run(self):
         """Runs the tic-tac-toe game"""

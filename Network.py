@@ -1,5 +1,6 @@
 import socket
 import threading
+import pickle
 
 class Network():
     def __init__(self):
@@ -14,9 +15,15 @@ class Network():
         print(message.decode())
 
     def get_pos(self):
-        # self.connect_to_server()
-        message = self.client_socket.recv(1024)
-        print(message.decode())
+        pass
+
+    def get_players(self):
+        player = self.client_socket.recv(1024)
+        connected_players = player.decode("utf-8")
+        return connected_players
+        
+
+
 
     def send_pos(self):
         pass
