@@ -13,8 +13,6 @@ class Network():
         message = self.client_socket.recv(1024)
         print(message.decode())
 
-    
-
     def get_pos(self):
         # self.connect_to_server()
         message = self.client_socket.recv(1024)
@@ -22,11 +20,5 @@ class Network():
 
     def send_pos(self):
         pass
-
-
-n = Network()
-n.connect_to_server()
-t1 = threading.Thread(target = n.connect_to_server)
-t1.start()
 
     
