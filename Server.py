@@ -1,4 +1,5 @@
 import socket
+import pickle
 class Server():
     def __init__(self):
         self.PORT = 12345
@@ -34,9 +35,9 @@ class Server():
             players.append(amount_connections)
 
             # Let the client know how many plays joined the game
-            client_socket.send(f"{client_address} has joined. \n {amount_connections} players has connected to the game".encode("utf-8"))
-            client_socket.send(str(players).encode("utf-8"))
-            # self.broadcast(str(players.encode("utf-8")))
+            client_socket.send(f"{client_address} has joined.")
+            send_players = pickle.dumps(players)
+            client_socket.send(send_players)
 
     
     def send_pos(self):

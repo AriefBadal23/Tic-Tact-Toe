@@ -19,7 +19,8 @@ class Network():
 
     def get_players(self):
         player = self.client_socket.recv(1024)
-        connected_players = player.decode("utf-8")
+        connected_players = pickle.loads(player)
+        # print(len(connected_players))
         return connected_players
         
 
