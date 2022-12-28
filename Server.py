@@ -31,13 +31,13 @@ class Server():
             # increment amount of connections
             amount_connections +=1
 
-            # add to players list
             players.append(amount_connections)
 
-            # Let the client know how many plays joined the game
-            client_socket.send(f"{client_address} has joined.")
-            send_players = pickle.dumps(players)
-            client_socket.send(send_players)
+            amount_of_players = pickle.dumps(players)
+
+            client_socket.send(amount_of_players)
+
+            print(f"{client_address} has joined.")
 
     
     def send_pos(self):
@@ -49,14 +49,15 @@ class Server():
         pass
 
 
-    def run_server(self):
-        try:
-            self.listen_to_connection()
-        except:
-            print("Failed to strart the server")
+    # def run_server(self):
+    #     try:
+    #         while True:
+    #             self.listen_to_connection()
+    #     except:
+    #         print("Failed to start the server")
 
 
 game_server = Server()
-game_server.run_server()
+game_server.listen_to_connection()
             
             

@@ -10,9 +10,7 @@ class Network():
         self.client_id = 0
 
     def connect_to_server(self):
-        self.client_socket.connect((self.IP_ADDRESS, self.PORT_NUMBER))
-        message = self.client_socket.recv(1024)
-        print(message.decode())
+        self.client_socket.connect((self.IP_ADDRESS, self.PORT_NUMBER))                   
 
     def get_pos(self):
         pass
@@ -20,7 +18,6 @@ class Network():
     def get_players(self):
         player = self.client_socket.recv(1024)
         connected_players = pickle.loads(player)
-        # print(len(connected_players))
         return connected_players
         
 

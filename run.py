@@ -4,7 +4,6 @@
  """
 from game import Game
 from Network import Network
-import socket
 
 if __name__ == "__main__":
     tic_tact_toe_network = Network()
@@ -13,5 +12,4 @@ if __name__ == "__main__":
     player = tic_tact_toe_network.get_players()
     app.set_player(player)
    
-
     app.run()
