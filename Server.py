@@ -5,6 +5,7 @@ class Server():
         self.PORT = 12345
         self.IP_ADDRESS = socket.gethostbyname(socket.gethostname())
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.MAX_PLAYERS = 2
 
 
     def broadcast(self, payload):
@@ -32,12 +33,15 @@ class Server():
             amount_connections +=1
 
             players.append(amount_connections)
+            if amount_connections <= self.MAX_PLAYERS:
 
-            amount_of_players = pickle.dumps(players)
+                amount_of_players = pickle.dumps(players)
 
-            client_socket.send(amount_of_players)
+                client_socket.send(amount_of_players)
 
-            print(f"{client_address} has joined.")
+                print(f"{client_address} has joined.")
+            else:
+                print("Tic-tac-toe is only a game for 2 players!")
 
     
     def send_pos(self):
