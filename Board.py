@@ -73,7 +73,7 @@ class Board:
     def get_board(self):
         return self.__board
 
-    def draw_shape(self, col, row, player):
+    def draw_game_board(self, col, row, player):
         """Creates the tic tac toe player board with rows and columns 3x3
             Parameters
             ----------
