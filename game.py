@@ -29,13 +29,37 @@ class Game:
 
     def __init__(self):
         self.__running = True
-        self.__player = 0
+        self.__current_player = 1
+        self.__p2 = 0
+        self.joined_players = []
+        self.player_positions = []
         pygame.init()
 
     def set_player(self, player_list: list) -> list:
-        """ Creates a new player by any new connection that has been made """
-        # print(f"These are the players {player_list}")
-        return player_list
+        """ Stores the players that has been connected to the server """
+        if '1' in str(player_list):
+            global player_1
+            player_1 = player_list[0]
+            self.__current_player = player_1
+            self.joined_players.append(self.__current_player)
+            print(len(self.joined_players))
+
+            
+        if '2' in str(player_list):
+            global player_2
+            player_2 = player_list[1]
+            self.__p2 = player_2
+            self.joined_players.append(self.__p2)
+            print(len(self.joined_players))
+
+        else:
+            False
+
+    def get_player(self, playerlist):
+        """ retrieves the current player which has joined """
+        player = self.set_player(playerlist)
+        return player
+
 
     def run(self):
         """Runs the tic-tac-toe game"""
