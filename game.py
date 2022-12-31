@@ -60,6 +60,11 @@ class Game:
         player = self.set_player(playerlist)
         return player
 
+    def get_positions(self, player, position):
+        """ Retrieves the positions of the players """
+        self.player_positions.append({str(player): position})
+        print(self.player_positions)
+        return self.player_positions
 
     def run(self):
         """Runs the tic-tac-toe game"""
