@@ -3,14 +3,12 @@ It is required to install pygame to run the game.
 it contains the follwoing methods:
     * run() - runs the game
 """
-import time
-
 import pygame
 
 from board import Board
 from game_over_screen import GameOverScreen
 from window import Window
-
+import pickle
 
 class Game:
     """A class to create tic-tac-toe game
@@ -87,44 +85,40 @@ class Game:
                     mouse_x = int(event.pos[1] // 200)
 
                     if board._Board__check_available_square(mouse_x, mouse_y) is True:
-                        if self.__player == 1:
-                            board.draw_shape(mouse_x, mouse_y, self.__player)
+                        if self.__current_player == 1 and len(self.joined_players) == 2:
+                            board.draw_game_board(mouse_x, mouse_y, self.__current_player)
                             if board._Board__mark_board_full(mouse_x, mouse_y):
                                 self.__running = False
+
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
-                            if board.draw_circle(
-                                main_window, (0, 255, 0), x_pos, y_pos
-                            ):
-                                if (
-                                    board._Board__check_win(self.__player, main_window)
-                                    is True
-                                ):
+
+                            cirlce_drawned = board.draw_circle(main_window, (0, 255, 0), x_pos, y_pos)
+                            self.get_positions(self.__current_player, cirlce_drawned)
+
+                            if cirlce_drawned:
+                                if (board._Board__check_win(self.__current_player, main_window) is True):
                                     pygame.display.update()
-                                    game_over_screen.show_popup(
-                                        self.__player, main_window, 150, 300
-                                    )
+                                    game_over_screen.show_popup(self.__current_player, main_window, 150, 300)
                                     # time.sleep(5)
                                     # self.running = False
-                            self.__player = 2
+                            self.__current_player = self.__p2
 
-                        elif self.__player == 2:
+                        elif self.__current_player == 2:
                             # mouse_x and mouse_y = uses the 3x3 raster
                             # and x_pos and y_post uses
                             # the real mouse position
 
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
-                            board.draw_shape(mouse_x, mouse_y, self.__player)
-                            board.draw_circle(main_window, (255, 0, 0), x_pos, y_pos)
-                            if (
-                                board._Board__check_win(self.__player, main_window)
-                                is True
-                            ):
+                            board.draw_game_board(mouse_x, mouse_y, self.__current_player)
+
+                            position = board.draw_circle(main_window, (255, 0, 0), x_pos, y_pos)
+                            self.get_positions(self.__current_player, position)
+
+                            if (board._Board__check_win(self.__current_player, main_window) is True):
                                 pygame.display.update()
-                                game_over_screen.show_popup(
-                                    self.__player, main_window, 200, 300
-                                )
+                                game_over_screen.show_popup(self.__current_player, main_window, 200, 300)
                                 # time.sleep(5)
                                 # self.running = False
-                            self.__player = 1
+                            self.__current_player = 1
