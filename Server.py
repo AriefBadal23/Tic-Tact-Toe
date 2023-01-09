@@ -9,7 +9,7 @@ class Server():
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.MAX_PLAYERS = 5
         self.connections = []
-        self.players = []
+        self.amount_of_connections_list = []
         self.players_has_joined = []
 
 
@@ -30,7 +30,7 @@ class Server():
             if data:
                 # print(pickle.loads(data))
                 print((f'Received: {str(pickle.loads(data))}'))
-                self.broadcast(pickle.dumps(data))
+                self.broadcast(pickle.loads(data))
             else:
                 self.connections.remove(conn)
                 self.server_socket.close()
@@ -50,29 +50,31 @@ class Server():
             print(f'{client_address} has connected')
             start_new_thread(self.receive_data, (client_socket,))
             amount_of_connections += 1
-            self.players.append(amount_of_connections)
+            self.amount_of_connections_list.append(amount_of_connections)
             print(f'{amount_of_connections} connections has been made')
-            client_socket.send(str(self.players).encode())
+            client_socket.send(str(self.amount_of_connections_list).encode())
 
-            if len(self.players) == 1:
-                player_1_joined = {
-                    "player": self.players[0],
-                    "CAN_PLAY": True
-                }
-                self.players_has_joined.append(player_1_joined)
+            if len(self.amount_of_connections_list) >= 1:
+                if len(self.amount_of_connections_list) == 1:
+                    player_1_joined = {
+                        "player": self.amount_of_connections_list[0],
+                        "CAN_PLAY": True
+                    }
+                    self.players_has_joined.append(player_1_joined)
 
 
-            elif len(self.players) == 2:
-                player_2_joined = {
-                    "player": self.players[1],
-                    "CAN_PLAY": False
-                }
-                self.players_has_joined.append(player_2_joined)
+                elif len(self.amount_of_connections_list) == 2:
+                    player_2_joined = {
+                        "player": self.amount_of_connections_list[1],
+                        "CAN_PLAY": False
+                    }
+                    self.players_has_joined.append(player_2_joined)
             
 
 
-            print(f'Joined: {self.players_has_joined}')
-            client_socket.send(pickle.dumps(self.players_has_joined))
+                print(f'Joined: {self.players_has_joined}')
+                
+                client_socket.send(pickle.dumps(self.players_has_joined))
             
 
         

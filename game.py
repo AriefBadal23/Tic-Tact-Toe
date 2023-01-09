@@ -25,9 +25,14 @@ class Network():
     def connect_to_server(self):
         self.client_socket.connect((self.IP_ADDRESS, self.PORT_NUMBER))
 
-    def send_pos(self, x_pos, y_pos):
-            message = pickle.dumps([x_pos, y_pos])
-            print(pickle.loads(message))
+    def send_pos(self, player, x_pos, y_pos):
+            player_positions = {
+                'player': player,
+                'x': x_pos,
+                'y': y_pos
+            }
+            message = pickle.dumps(player_positions)
+            # print(pickle.loads(message))
             # print(str(message))
 
             self.client_socket.send(message)
@@ -37,7 +42,7 @@ class Network():
     def parse_player_pos(self):
         # received_pos is in positions ipv bytes!
         received_pos = pickle.loads(self.client_socket.recv(1024))
-        print(f'Parsed player pos now:{received_pos}')
+        # print(f'Parsed player pos now:{received_pos}')
         return received_pos
     
 
@@ -67,9 +72,13 @@ class Game():
         self.is_player_1_turn = False
         self.is_player_2_turn = False
         self.player_2 = 2
+        self.update_positions = []
+        self.current_positions = []
+
         pygame.init()
     
-    def get_pos(self, obj):
+    def get_player_pos(self, obj):
+        """ This method is currently not in use! """
         Game.positions.append(obj)
         # print(Game.positions)
         return Game.positions
@@ -78,10 +87,32 @@ class Game():
         get_players = self.game_network.client_socket.recv(1024)
         return get_players
     
-    def get_updated_pos(self, pos):
-        pass
+    
+    def get_player_details(self, player, x, y):
+        """ Return the player, x, and y value of the positions """
+        self.current_positions.append([player, x, y])
+        return self.current_positions
 
 
+    def new_positions(self) -> list:
+        POSITIONS = self.game_network.parse_player_pos()
+        self.update_positions.append(POSITIONS)
+        
+        print(f'update: {self.update_positions}')
+    
+    # def get_values(self):
+    #      values = []
+    #      for dictionary in self.update_positions:
+    #         for player, x_pos in dictionary.items():
+    #                 # print(player)
+    #                 print(len(x_pos))
+    #                 values.append(x_pos)
+    #                 # player, x, y = values
+    #                 # print(player, x, y)
+    #                 # print(x_pos)
+    #         print(values)
+
+        
 
 
     def run(self):
@@ -93,22 +124,24 @@ class Game():
         board.draw_lines(main_window)
         self.game_network.connect_to_server()
         # start_new_thread
-        self.game_network.client_socket.recv(1024)
+        recv_player = self.game_network.client_socket.recv(1024)
+        print(recv_player)
         new_playsers = self.set_players()
 
         if new_playsers:
             players = pickle.loads(new_playsers)
             joined_players = []
             joined_players.append(players)
-            # available_players.append(recv_player)
-            for player in joined_players:
-                print(f'Received player:{player[0]}')
-                if player[0]["player"] == 1 and player[0]["CAN_PLAY"] == True:
-                    self.__player = 1
-                    self.is_player_1_turn = True
+            if len(joined_players) >=1:
+                for player in joined_players:
+                    # print(f'Received player:{player[0]}')
 
-                else:
-                    self.player_2 = 2
+                    if player[0]["player"] == 1 and player[0]["CAN_PLAY"] == True:
+                        self.__player = 1
+                        self.is_player_1_turn = True
+
+                    else:
+                        self.player_2 = 2
         
                      
 
@@ -126,6 +159,7 @@ class Game():
                     mouse_x = int(event.pos[1] // 200)
 
 
+
                     if board._Board__check_available_square(mouse_x, mouse_y) is True:
                         if self.__player == 1 and self.is_player_1_turn:
                             board.draw_game_board(mouse_x, mouse_y, self.__player)
@@ -134,20 +168,33 @@ class Game():
 
                             mouse_position = pygame.mouse.get_pos()
                             x_pos, y_pos = mouse_position
+                            
+                            
+                            # if self.is_player_1_turn == False and current_player ==1:
+                            #     board.draw_circle(main_window, (0, 255, 0), x, y )
+                            # else:
+                            # print(f'current player: {player["player"]},{player["x"]} {player["y"]}')
+                            if self.is_player_1_turn == False:
+                                for pos in self.update_positions:
+                                    if "player" and "x" and "y" in pos:
+                                        player, x, y, = pos.values()
+                                        print(player, x, y)
+                                        board.draw_circle(main_window, (0, 255, 0), x, y)
 
-
-                            if board.draw_circle(main_window, (0, 255, 0), x_pos, y_pos):
-
-
+                                # dict_player= self.current_pos()
+                                # print(dict_player)
+                            if self.is_player_1_turn == True:
+                                board.draw_circle(main_window, (0, 255, 0), x_pos, y_pos)
                                 if (board._Board__check_win(self.__player, main_window) is True):
                                     pygame.display.update()
                                     game_over_screen.show_popup(self.__player, main_window, 150, 300)
                                     # time.sleep(5)
                                     # self.running = False
-                            print(f'Value: {self.player_2}')
                             self.is_player_1_turn = False
                             self.is_player_2_turn = True
-                            self.game_network.send_pos(x_pos, y_pos)
+                            self.game_network.send_pos(1, x_pos, y_pos)
+                            
+
 
 
                         elif self.player_2 == 2 and self.is_player_2_turn == True:
@@ -158,6 +205,7 @@ class Game():
                             x_pos, y_pos = mouse_position
 
                             board.draw_circle(main_window, (255, 0, 0), x_pos, y_pos)
+
                             if (board._Board__check_win(self.__player, main_window) is True):
                                 pygame.display.update()
                                 game_over_screen.show_popup(self.__player, main_window, 200, 300)
@@ -166,8 +214,9 @@ class Game():
                             self.is_player_2_turn = False
                             self.is_player_1_turn = True
                             self.__player = 1
-                            self.game_network.send_pos(x_pos, y_pos)
-                        start_new_thread(self.game_network.parse_player_pos, ())
+                            self.game_network.send_pos(2, x_pos, y_pos)
+
+                        start_new_thread(self.new_positions, ())
 
                         # self.game_network.parse_player_pos()
 
