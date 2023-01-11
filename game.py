@@ -15,8 +15,6 @@ def run():
     window = Window(600, 600)
     main_window = window.get_window()
     grid = Grid()
-    grid.draw(main_window)
-    pygame.display.update()
     player = "X"
 
     running = True
@@ -35,6 +33,11 @@ def run():
                     else:
                         player = "X"
                     grid.print_grid()
+        
+        grid.draw(main_window)
+        pygame.display.update()
+    
+                
 
 
 
