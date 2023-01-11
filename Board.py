@@ -12,8 +12,6 @@
     self.line_width: int
     self.width: int
     self.line_color: tupl
-
-
     Methods
     ------
     draw_shape(col=int, row=int, player=int)
@@ -24,33 +22,24 @@
     
     draw_circle(window = window, color = tupl, x= int, y=int)
         Draws the circle for the player
-
     draw_lines(window= window)
         draws the line that makes it a 3x3 grid
     
     __draw_horizontal_winning_line(window= Window obj, col=int)
         draws a horizontal winning line
-
-
     __draw_diagonal_winning_line_2(window = Window obj, row= int)
         draws a diagonal_line for the ... side
-
     __draw_vertical_winning_line(window = Window obj, row= int)
         draws a vertical line
     
-
     __draw_left_diagonal_winning_line(window = Window obj, row=int)
         draws the left diagnal winning line
-
     __draw_diagonal_winning_line_2(window = Window obj, row = int)
         draws the diagnal winning_line from the right corner
-
     __check_win(player = int, window = Window obj)
         Checks if a player has won the game
-
     __mark_board_full(row = int, col = int)
         Marks the board full if no the grid is full
-
  """
 import numpy
 import pygame
@@ -68,12 +57,13 @@ class Board:
         self.line_width = 20
         self.width = 600
         self.line_color = (255, 255, 255)
+        print(self.__board)
         
     
     def get_board(self):
         return self.__board
 
-    def draw_game_board(self, col, row, player):
+    def draw_shape(self, col, row, player):
         """Creates the tic tac toe player board with rows and columns 3x3
             Parameters
             ----------
@@ -83,7 +73,6 @@ class Board:
                 row to draw the shape
             player : int
                 player which draw the shape
-
         """
         # Starts with zero so, 0,1,2
         game_board = self.get_board()
@@ -119,6 +108,7 @@ class Board:
         """
         circle = pygame.draw.circle(window, color, (x, y), 50, 10)
         pygame.display.update()
+        print(self.__board)
         return circle
 
     def draw_lines(self, window):
